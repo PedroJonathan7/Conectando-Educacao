@@ -1,30 +1,26 @@
 {
   "expo": {
     "name": "ConectandoEducacao",
-    "slug": "conectando-educacao",
+    "slug": "ConectandoEducacao",
     "version": "1.0.0",
     "orientation": "portrait",
-    "jsEngine": "hermes",
-    "plugins": ["react-native-reanimated/plugin"],
-    "assetBundlePatterns": ["**/*"],
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "platforms": ["ios", "android", "web"],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#ffffff"
       },
-      "package": "com.jon.conectandoeducacao"
+      "package": "com.seuusuario.conectandoeducacao"
     },
     "web": {
       "favicon": "./assets/favicon.png"
