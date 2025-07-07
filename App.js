@@ -2,36 +2,32 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { UserProvider } from './contexts/UserContext';
+
 import LoginScreen from './screens/LoginScreen';
 import CadastroAluno from './screens/CadastroAluno';
+import EsqueceuSenhaScreen from './screens/EsqueceuSenhaScreen';
 import BottomTabs from './components/BottomTabs';
-
 import MatematicaScreen from './screens/MatematicaScreen';
 import PortuguesScreen from './screens/PortuguesScreen';
 import InformaticaScreen from './screens/InformaticaScreen';
-import AcoesScreen from './screens/AcoesScreen'; // ✅ nova tela importada
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-        {/* Acesso inicial */}
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="CadastroAluno" component={CadastroAluno} />
-
-        {/* Navegação com abas */}
-        <Stack.Screen name="Home" component={BottomTabs} />
-
-        {/* Telas internas dos cursos */}
-        <Stack.Screen name="Matematica" component={MatematicaScreen} />
-        <Stack.Screen name="Portugues" component={PortuguesScreen} />
-        <Stack.Screen name="Informatica" component={InformaticaScreen} />
-
-        {/*  Tela de ações */}
-        <Stack.Screen name="Acoes" component={AcoesScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <UserProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="CadastroAluno" component={CadastroAluno} />
+          <Stack.Screen name="EsqueceuSenha" component={EsqueceuSenhaScreen} />
+          <Stack.Screen name="Home" component={BottomTabs} />
+          <Stack.Screen name="Matematica" component={MatematicaScreen} />
+          <Stack.Screen name="Portugues" component={PortuguesScreen} />
+          <Stack.Screen name="Informatica" component={InformaticaScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserProvider>
   );
 }

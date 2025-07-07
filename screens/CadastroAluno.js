@@ -7,13 +7,14 @@ import { database } from '../firebaseConfig';
 
 export default function CadastroAluno({ navigation }) {
   const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
 
   const handleCadastro = async () => {
     const userKey = nome.trim().toLowerCase();
 
-    if (!userKey || !senha || !confirmarSenha) {
+    if (!userKey || !email || !senha || !confirmarSenha) {
       Alert.alert('Erro', 'Preencha todos os campos corretamente.');
       return;
     }
@@ -34,6 +35,7 @@ export default function CadastroAluno({ navigation }) {
 
       await set(alunoRef, {
         nome: userKey,
+        email: email.trim().toLowerCase(),
         senha: senha
       });
 
@@ -57,6 +59,13 @@ export default function CadastroAluno({ navigation }) {
         placeholder="Nome de usuário"
         value={nome}
         onChangeText={setNome}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="E-mail"
+        keyboardType="email-address"
+        value={email}
+        onChangeText={setEmail}
       />
       <TextInput
         style={styles.input}

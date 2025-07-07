@@ -1,39 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View, TextInput, Text, TouchableOpacity, Alert, StyleSheet
 } from 'react-native';
 import { get, ref } from 'firebase/database';
 import { database } from '../firebaseConfig';
+import { UserContext } from '../contexts/UserContext';
 
 export default function LoginScreen({ navigation }) {
-  const [usuario, setUsuario] = useState('');
+  const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const { setUser } = useContext(UserContext);
 
   const handleLogin = async () => {
-    const userKey = usuario.trim().toLowerCase();
+    const emailKey = email.trim().toLowerCase();
+    const senhaKey = senha;
 
-    if (!userKey || !senha) {
+    if (!emailKey || !senhaKey) {
       Alert.alert('Erro', 'Preencha todos os campos.');
       return;
     }
 
     try {
-      const userRef = ref(database, `alunos/${userKey}`);
-      const snapshot = await get(userRef);
+      const alunosRef = ref(database, 'alunos/');
+      const snapshot = await get(alunosRef);
 
       if (!snapshot.exists()) {
-        Alert.alert('Erro', 'Usuário não encontrado.');
+        Alert.alert('Erro', 'Nenhum aluno cadastrado.');
         return;
       }
 
-      const dados = snapshot.val();
-      if (dados.senha === senha) {
+      const alunos = snapshot.val();
+      let usuarioEncontrado = null;
+      let userKey = null;
+
+      for (const key in alunos) {
+        const aluno = alunos[key];
+        if (aluno.email === emailKey && aluno.senha === senhaKey) {
+          usuarioEncontrado = aluno;
+          userKey = key;
+          break;
+        }
+      }
+
+      if (usuarioEncontrado) {
+        setUser({ nome: userKey, email: usuarioEncontrado.email });
         navigation.reset({
           index: 0,
           routes: [{ name: 'Home' }],
         });
       } else {
-        Alert.alert('Erro', 'Senha incorreta.');
+        Alert.alert('Erro', 'E-mail ou senha inválidos.');
       }
     } catch (error) {
       console.error('Erro no login:', error);
@@ -47,9 +63,10 @@ export default function LoginScreen({ navigation }) {
 
       <TextInput
         style={styles.input}
-        placeholder="Nome do usuário"
-        value={usuario}
-        onChangeText={setUsuario}
+        placeholder="E-mail"
+        keyboardType="email-address"
+        value={email}
+        onChangeText={setEmail}
       />
       <TextInput
         style={styles.input}
@@ -65,6 +82,10 @@ export default function LoginScreen({ navigation }) {
 
       <TouchableOpacity onPress={() => navigation.navigate('CadastroAluno')}>
         <Text style={styles.linkText}>Não tem conta? Cadastre-se</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('EsqueceuSenha')}>
+        <Text style={styles.linkText}>Esqueceu sua senha?</Text>
       </TouchableOpacity>
     </View>
   );

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { UserContext } from '../contexts/UserContext';
 
 export default function PerfilScreen({ navigation }) {
+  const { user } = useContext(UserContext);
+
   const sair = () => {
     Alert.alert('Sair', 'Você saiu da conta.');
-    navigation.navigate('Login');
+    navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
   };
 
   return (
@@ -12,9 +15,8 @@ export default function PerfilScreen({ navigation }) {
       <Text style={styles.title}>Perfil do Aluno</Text>
 
       <View style={styles.card}>
-        <Text>Nome: Jonathan Pedro</Text>
-        <Text>Turma: Não tem</Text>
-        <Text>Instituição: Não tem</Text>
+        <Text>Nome: {user?.nome || '---'}</Text>
+        <Text>Email: {user?.email || '---'}</Text>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={sair}>
