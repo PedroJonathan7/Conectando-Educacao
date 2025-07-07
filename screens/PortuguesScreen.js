@@ -1,9 +1,13 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function PortuguesScreen() {
+export default function PortuguesScreen({ navigation }) {
   return (
     <ScrollView style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Text style={styles.voltar}>← Voltar</Text>
+      </TouchableOpacity>
+
       <Text style={styles.title}>Curso de Português</Text>
 
       <View style={styles.card}>
@@ -35,6 +39,7 @@ export default function PortuguesScreen() {
 
 const styles = StyleSheet.create({
   container: { backgroundColor: '#e6ddff', padding: 20 },
+  voltar: { fontSize: 16, color: '#6b5ca5', marginBottom: 10 },
   title: { fontSize: 22, fontWeight: 'bold', marginBottom: 15, color: '#3e2f7a' },
   card: { backgroundColor: '#fff', padding: 15, borderRadius: 10, marginBottom: 15 },
   cardTitle: { fontWeight: 'bold', marginBottom: 5 },

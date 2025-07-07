@@ -9,6 +9,7 @@ import BottomTabs from './components/BottomTabs';
 import MatematicaScreen from './screens/MatematicaScreen';
 import PortuguesScreen from './screens/PortuguesScreen';
 import InformaticaScreen from './screens/InformaticaScreen';
+import AcoesScreen from './screens/AcoesScreen'; // ✅ nova tela importada
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,9 @@ export default function App() {
         <Stack.Screen name="Matematica" component={MatematicaScreen} />
         <Stack.Screen name="Portugues" component={PortuguesScreen} />
         <Stack.Screen name="Informatica" component={InformaticaScreen} />
+
+        {/*  Tela de ações */}
+        <Stack.Screen name="Acoes" component={AcoesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -6,52 +6,52 @@ export default function HomeScreen({ navigation }) {
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Bem-vindo ao Conectando Educação</Text>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Seus cursos:</Text>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Curso')}>
-          <Text style={styles.buttonText}>Ver cursos disponíveis</Text>
+      <Text style={styles.subtitle}>Seus cursos:</Text>
+
+      <View style={styles.cardGroup}>
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Matematica')}>
+          <Text style={styles.cardTitle}>MATEMÁTICA</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Portugues')}>
+          <Text style={styles.cardTitle}>PORTUGUÊS</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Informatica')}>
+          <Text style={styles.cardTitle}>INFORMÁTICA</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Destaques:</Text>
-
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>🔢 Matemática</Text>
-          <Text>Aulas de frações, porcentagem e mais!</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Matematica')}>
-            <Text style={styles.link}>Entrar</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>📝 Português</Text>
-          <Text>Ortografia, interpretação e redação.</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Portugues')}>
-            <Text style={styles.link}>Entrar</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>💻 Informática</Text>
-          <Text>Pacote Office, navegação segura e mais.</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Informatica')}>
-            <Text style={styles.link}>Entrar</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <TouchableOpacity style={styles.botaoAcao} onPress={() => navigation.navigate('Acoes')}>
+        <Text style={styles.botaoTexto}>Adicionar Ação</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#e6ddff', padding: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, color: '#3e2f7a' },
-  section: { marginBottom: 30 },
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
-  card: { backgroundColor: '#fff', padding: 15, borderRadius: 10, marginBottom: 15 },
-  cardTitle: { fontWeight: 'bold', marginBottom: 5 },
-  button: { backgroundColor: '#6b5ca5', padding: 10, borderRadius: 8 },
-  buttonText: { color: '#fff', textAlign: 'center' },
-  link: { color: '#6b5ca5', marginTop: 5 },
+  container: { backgroundColor: '#87b4d9', padding: 20 },
+  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 10, color: '#fff' },
+  subtitle: { fontSize: 18, marginVertical: 10, color: '#fff' },
+  cardGroup: { marginBottom: 20 },
+  card: {
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    padding: 20,
+    marginVertical: 10,
+    alignItems: 'center',
+  },
+  cardTitle: { fontSize: 16, fontWeight: 'bold', color: '#2f4f4f' },
+  botaoAcao: {
+    backgroundColor: '#fff',
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 30,
+    alignItems: 'center',
+  },
+  botaoTexto: {
+    color: '#2f4f4f',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 });
