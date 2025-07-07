@@ -30,7 +30,7 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#87b4d9', padding: 20 },
+  container: { backgroundColor: '#c7b3ff', padding: 20 },
   title: { fontSize: 22, fontWeight: 'bold', marginBottom: 10, color: '#fff' },
   subtitle: { fontSize: 18, marginVertical: 10, color: '#fff' },
   cardGroup: { marginBottom: 20 },
