@@ -45,7 +45,7 @@ export default function LoginProfessor({ navigation }) {
         setUser({ nome: key, email: professorEncontrado.email });
         navigation.reset({
           index: 0,
-          routes: [{ name: 'Home' }],
+          routes: [{ name: 'HomeProfessor' }], // <- ALTERADO AQUI
         });
       } else {
         Alert.alert('Erro', 'E-mail ou senha inválidos.');
