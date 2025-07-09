@@ -22,9 +22,6 @@ export default function HomeProfessorScreen() {
 
   return (
     <ScrollView style={styles.container}>
-      <TouchableOpacity style={styles.voltar} onPress={() => navigation.goBack()}>
-        <Text style={styles.voltarTexto}>Voltar</Text>
-      </TouchableOpacity>
 
       <Text style={styles.title}>Bem-vindo, Professor</Text>
 

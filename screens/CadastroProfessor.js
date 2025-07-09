@@ -1,6 +1,13 @@
-// screens/CadastroProfessor.js
 import React, { useState } from 'react';
-import { View, TextInput, Text, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Alert
+} from 'react-native';
 import { ref, set, get } from 'firebase/database';
 import { database } from '../firebaseConfig';
 
@@ -33,29 +40,123 @@ export default function CadastroProfessor({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cadastro de Professor</Text>
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
 
-      <TextInput style={styles.input} placeholder="Nome de usuário" value={nome} onChangeText={setNome} />
-      <TextInput style={styles.input} placeholder="E-mail" value={email} onChangeText={setEmail} keyboardType="email-address" />
-      <TextInput style={styles.input} placeholder="Senha" secureTextEntry value={senha} onChangeText={setSenha} />
-      <TextInput style={styles.input} placeholder="Confirmar senha" secureTextEntry value={confirmarSenha} onChangeText={setConfirmarSenha} />
+      <View style={styles.inputGroup}>
+        <Image source={require('../assets/user-icon.png')} style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Usuário"
+          value={nome}
+          onChangeText={setNome}
+        />
+      </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleCadastro}>
-        <Text style={styles.buttonText}>Cadastrar</Text>
+      <View style={styles.inputGroup}>
+        <Image source={require('../assets/email-icon.png')} style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="E-mail"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </View>
+
+      <View style={styles.inputGroup}>
+        <Image source={require('../assets/lock-icon.png')} style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          secureTextEntry
+          value={senha}
+          onChangeText={setSenha}
+        />
+      </View>
+
+      <View style={styles.inputGroup}>
+        <Image source={require('../assets/lock-icon.png')} style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirmar Senha"
+          secureTextEntry
+          value={confirmarSenha}
+          onChangeText={setConfirmarSenha}
+        />
+      </View>
+
+      <TouchableOpacity style={styles.botaoCadastro} onPress={handleCadastro}>
+        <Text style={styles.textoBotao}>Cadastrar Professor</Text>
       </TouchableOpacity>
-
+      
       <TouchableOpacity onPress={() => navigation.navigate('LoginProfessor')}>
-        <Text style={styles.linkText}>Já tem conta? Faça login</Text>
+        <Text style={styles.linkText}>Já tem conta? Fazer login</Text>
       </TouchableOpacity>
+
+      <Text style={styles.footer}>conectando educação-PE</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#c7b3ff', justifyContent: 'center', paddingHorizontal: 25 },
-  title: { fontSize: 28, fontWeight: 'bold', color: '#3e2f7a', marginBottom: 20, textAlign: 'center' },
-  input: { backgroundColor: '#e6e0ff', padding: 12, borderRadius: 8, marginBottom: 15 },
-  button: { backgroundColor: '#6b5ca5', padding: 14, borderRadius: 8, alignItems: 'center' },
-  buttonText: { color: '#fff', fontSize: 18 },
-  linkText: { marginTop: 15, textAlign: 'center', color: '#3e2f7a' },
+  container: {
+    flex: 1,
+    backgroundColor: '#3598af',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20
+  },
+  logo: {
+    width: 130,
+    height: 130,
+    marginBottom: 30,
+    resizeMode: 'contain'
+  },
+  inputGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    marginVertical: 8,
+    width: '100%'
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    marginRight: 10
+  },
+  input: {
+    flex: 1,
+    height: 50
+  },
+  botaoCadastro: {
+    backgroundColor: '#ffffff',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 25,
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: '#000'
+  },
+  textoBotao: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000'
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 20,
+    color: '#fff',
+    fontSize: 16,
+    fontStyle: 'italic'
+  },
+  linkText: {
+  marginTop: 15,
+  color: '#fff',
+  textDecorationLine: 'underline',
+  fontSize: 14,
+  textAlign: 'center'
+}
+
 });

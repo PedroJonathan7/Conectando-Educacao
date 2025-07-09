@@ -1,6 +1,12 @@
 import React, { useState, useContext } from 'react';
 import {
-  View, TextInput, Text, TouchableOpacity, Alert, StyleSheet
+  View,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Alert
 } from 'react-native';
 import { get, ref } from 'firebase/database';
 import { database } from '../firebaseConfig';
@@ -59,51 +65,129 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="E-mail"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        secureTextEntry
-        value={senha}
-        onChangeText={setSenha}
+      <Image
+        source={require('../assets/logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
       />
 
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Entrar</Text>
+      <View style={styles.inputContainer}>
+        <Image source={require('../assets/user-icon.png')} style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Image source={require('../assets/lock-icon.png')} style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          secureTextEntry
+          value={senha}
+          onChangeText={setSenha}
+        />
+      </View>
+
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('CadastroAluno')}>
-        <Text style={styles.linkText}>Não tem conta? Cadastre-se como Aluno</Text>
-      </TouchableOpacity>
+      <View style={styles.rowLinks}>
+        <TouchableOpacity onPress={() => navigation.navigate('CadastroProfessor')}>
+          <Text style={styles.linkText}>cadastrar professor</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('CadastroAluno')}>
+          <Text style={styles.linkText}>cadastrar aluno</Text>
+        </TouchableOpacity>
+      </View>
 
-      <TouchableOpacity onPress={() => navigation.navigate('CadastroProfessor')}>
-        <Text style={styles.linkText}>É professor? Cadastre-se aqui</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('EsqueceuSenha')}>
+        <Text style={styles.linkText}>Esqueci a senha</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate('LoginProfessor')}>
-        <Text style={styles.linkText}>Login de Professor</Text>
+        <Text style={styles.linkText}>Sou Professor</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('EsqueceuSenha')}>
-        <Text style={styles.linkText}>Esqueceu sua senha?</Text>
-      </TouchableOpacity>
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>conectando educação-PE</Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#c7b3ff', justifyContent: 'center', paddingHorizontal: 25 },
-  title: { fontSize: 32, fontWeight: 'bold', color: '#3e2f7a', marginBottom: 30, alignSelf: 'center' },
-  input: { backgroundColor: '#e6e0ff', padding: 12, borderRadius: 8, marginBottom: 15 },
-  button: { backgroundColor: '#6b5ca5', padding: 14, borderRadius: 8, alignItems: 'center' },
-  buttonText: { color: '#fff', fontSize: 18 },
-  linkText: { marginTop: 15, textAlign: 'center', color: '#3e2f7a' },
+  container: {
+    flex: 1,
+    backgroundColor: '#3598AC',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  logo: {
+    width: 160,
+    height: 160,
+    marginBottom: 20,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 30,
+    paddingHorizontal: 15,
+    marginVertical: 8,
+    width: '100%',
+    height: 50,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+  },
+  loginButton: {
+    backgroundColor: '#fff',
+    borderRadius: 30,
+    marginTop: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 50,
+    alignItems: 'center',
+  },
+  loginText: {
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  rowLinks: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: 20,
+    paddingHorizontal: 10,
+  },
+  linkText: {
+    color: '#fff',
+    fontSize: 14,
+    textDecorationLine: 'underline',
+    textAlign: 'center',
+    marginTop: 10
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 10,
+    backgroundColor: '#f6f0e5',
+    width: '100%',
+    alignItems: 'center',
+    padding: 10,
+  },
+  footerText: {
+    fontFamily: 'cursive',
+    fontSize: 16,
+  },
 });
