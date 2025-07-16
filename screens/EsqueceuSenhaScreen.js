@@ -19,28 +19,45 @@ export default function EsqueceuSenhaScreen({ navigation }) {
     }
 
     try {
+      // Buscar alunos
       const alunosRef = ref(database, 'alunos/');
-      const snapshot = await get(alunosRef);
-
-      if (!snapshot.exists()) {
-        Alert.alert('Erro', 'Nenhum aluno cadastrado.');
-        return;
-      }
-
-      const alunos = snapshot.val();
+      const snapshotAlunos = await get(alunosRef);
       let usuarioEncontrado = null;
       let userId = null;
+      let tipoUsuario = null; // 'alunos' ou 'professores'
 
-      for (const key in alunos) {
-        if (alunos[key].email === emailKey) {
-          usuarioEncontrado = alunos[key];
-          userId = key;
-          break;
+      if (snapshotAlunos.exists()) {
+        const alunos = snapshotAlunos.val();
+        for (const key in alunos) {
+          if (alunos[key].email === emailKey) {
+            usuarioEncontrado = alunos[key];
+            userId = key;
+            tipoUsuario = 'alunos';
+            break;
+          }
         }
       }
 
-      if (usuarioEncontrado && userId) {
-        await update(ref(database, `alunos/${userId}`), {
+      // Se não achou nos alunos, busca nos professores
+      if (!usuarioEncontrado) {
+        const profsRef = ref(database, 'professores/');
+        const snapshotProfs = await get(profsRef);
+        if (snapshotProfs.exists()) {
+          const professores = snapshotProfs.val();
+          for (const key in professores) {
+            if (professores[key].email === emailKey) {
+              usuarioEncontrado = professores[key];
+              userId = key;
+              tipoUsuario = 'professores';
+              break;
+            }
+          }
+        }
+      }
+
+      if (usuarioEncontrado && userId && tipoUsuario) {
+        // Atualiza a senha no caminho correto
+        await update(ref(database, `${tipoUsuario}/${userId}`), {
           senha: novaSenhaKey
         });
 
@@ -65,6 +82,7 @@ export default function EsqueceuSenhaScreen({ navigation }) {
         keyboardType="email-address"
         value={email}
         onChangeText={setEmail}
+        autoCapitalize="none"
       />
 
       <TextInput

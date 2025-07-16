@@ -1,7 +1,30 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { ref, get } from 'firebase/database';
+import { database } from '../firebaseConfig';
 
 export default function PortuguesScreen({ navigation }) {
+  const [modulos, setModulos] = useState([]);
+
+  useEffect(() => {
+    const carregarModulos = async () => {
+      try {
+        const refModulos = ref(database, 'cursos/Portugues/modulos');
+        const snapshot = await get(refModulos);
+        if (snapshot.exists()) {
+          const dados = snapshot.val();
+          const lista = Object.entries(dados).map(([key, val]) => ({ id: key, ...val }));
+          setModulos(lista);
+        }
+      } catch (error) {
+        console.error('Erro ao carregar módulos de Português:', error);
+        Alert.alert('Erro', 'Não foi possível carregar os dados.');
+      }
+    };
+
+    carregarModulos();
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -10,29 +33,14 @@ export default function PortuguesScreen({ navigation }) {
 
       <Text style={styles.title}>Curso de Português</Text>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 1: Ortografia</Text>
-        <Text>Regras de acentuação, grafia e letras.</Text>
-      </View>
+      {modulos.map((modulo) => (
+        <View key={modulo.id} style={styles.card}>
+          <Text style={styles.cardTitle}>{modulo.titulo}</Text>
+          <Text>{modulo.descricao}</Text>
+        </View>
+      ))}
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 2: Gramática</Text>
-        <Text>Verbos, substantivos, adjetivos e mais.</Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 3: Interpretação de Texto</Text>
-        <Text>Textos narrativos, descritivos, informativos.</Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 4: Redação</Text>
-        <Text>Coesão, coerência e estrutura textual.</Text>
-      </View>
-
-      <TouchableOpacity onPress={() => alert('Material de Português em breve')} style={styles.button}>
-        <Text style={styles.buttonText}>Ver Material Completo</Text>
-      </TouchableOpacity>
+      {modulos.length === 0 && <Text style={styles.emptyText}>Nenhum conteúdo adicionado ainda.</Text>}
     </ScrollView>
   );
 }
@@ -43,6 +51,5 @@ const styles = StyleSheet.create({
   title: { fontSize: 22, fontWeight: 'bold', marginBottom: 15, color: '#3e2f7a' },
   card: { backgroundColor: '#fff', padding: 15, borderRadius: 10, marginBottom: 15 },
   cardTitle: { fontWeight: 'bold', marginBottom: 5 },
-  button: { backgroundColor: '#6b5ca5', padding: 12, borderRadius: 8, alignItems: 'center' },
-  buttonText: { color: '#fff', fontSize: 16 },
+  emptyText: { textAlign: 'center', marginTop: 20, fontStyle: 'italic' },
 });

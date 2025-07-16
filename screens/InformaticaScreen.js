@@ -1,7 +1,30 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { ref, get } from 'firebase/database';
+import { database } from '../firebaseConfig';
 
 export default function InformaticaScreen({ navigation }) {
+  const [modulos, setModulos] = useState([]);
+
+  useEffect(() => {
+    const carregarModulos = async () => {
+      try {
+        const refModulos = ref(database, 'cursos/Informatica/modulos');
+        const snapshot = await get(refModulos);
+        if (snapshot.exists()) {
+          const dados = snapshot.val();
+          const lista = Object.entries(dados).map(([key, val]) => ({ id: key, ...val }));
+          setModulos(lista);
+        }
+      } catch (error) {
+        console.error('Erro ao carregar módulos de Informática:', error);
+        Alert.alert('Erro', 'Não foi possível carregar os dados.');
+      }
+    };
+
+    carregarModulos();
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -10,29 +33,14 @@ export default function InformaticaScreen({ navigation }) {
 
       <Text style={styles.title}>Curso de Informática</Text>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 1: Conceitos Básicos</Text>
-        <Text>Componentes, SO e funções essenciais.</Text>
-      </View>
+      {modulos.map((modulo) => (
+        <View key={modulo.id} style={styles.card}>
+          <Text style={styles.cardTitle}>{modulo.titulo}</Text>
+          <Text>{modulo.descricao}</Text>
+        </View>
+      ))}
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 2: Pacote Office</Text>
-        <Text>Word, Excel, PowerPoint: criação e edição.</Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 3: Internet Segura</Text>
-        <Text>Segurança de dados e navegação responsável.</Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 4: Apps Educacionais</Text>
-        <Text>Ferramentas para estudos online.</Text>
-      </View>
-
-      <TouchableOpacity onPress={() => alert('Material de Informática em breve')} style={styles.button}>
-        <Text style={styles.buttonText}>Ver Material Completo</Text>
-      </TouchableOpacity>
+      {modulos.length === 0 && <Text style={styles.emptyText}>Nenhum conteúdo adicionado ainda.</Text>}
     </ScrollView>
   );
 }
@@ -43,6 +51,5 @@ const styles = StyleSheet.create({
   title: { fontSize: 22, fontWeight: 'bold', marginBottom: 15, color: '#3e2f7a' },
   card: { backgroundColor: '#fff', padding: 15, borderRadius: 10, marginBottom: 15 },
   cardTitle: { fontWeight: 'bold', marginBottom: 5 },
-  button: { backgroundColor: '#6b5ca5', padding: 12, borderRadius: 8, alignItems: 'center' },
-  buttonText: { color: '#fff', fontSize: 16 },
+  emptyText: { textAlign: 'center', marginTop: 20, fontStyle: 'italic' },
 });

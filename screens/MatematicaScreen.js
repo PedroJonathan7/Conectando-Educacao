@@ -1,7 +1,31 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { ref, get } from 'firebase/database';
+import { database } from '../firebaseConfig';
 
 export default function MatematicaScreen({ navigation }) {
+  const [modulos, setModulos] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const snapshot = await get(ref(database, 'cursos/Matematica/modulos'));
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const lista = Object.values(data);
+          setModulos(lista);
+        } else {
+          setModulos([]);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar dados de Matemática:', error);
+        Alert.alert('Erro', 'Falha ao carregar o curso.');
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -10,29 +34,12 @@ export default function MatematicaScreen({ navigation }) {
 
       <Text style={styles.title}>Curso de Matemática</Text>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 1: Operações Básicas</Text>
-        <Text>Soma, subtração, multiplicação e divisão.</Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 2: Frações</Text>
-        <Text>Numeradores, denominadores, somas de frações.</Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 3: Porcentagem</Text>
-        <Text>Descontos, acréscimos e mais.</Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Módulo 4: Geometria</Text>
-        <Text>Figuras, perímetro, área e volume.</Text>
-      </View>
-
-      <TouchableOpacity onPress={() => alert('Material em breve')} style={styles.button}>
-        <Text style={styles.buttonText}>Ver Material Completo</Text>
-      </TouchableOpacity>
+      {modulos.map((modulo, index) => (
+        <View key={index} style={styles.card}>
+          <Text style={styles.cardTitle}>{modulo.titulo}</Text>
+          <Text>{modulo.descricao}</Text>
+        </View>
+      ))}
     </ScrollView>
   );
 }
