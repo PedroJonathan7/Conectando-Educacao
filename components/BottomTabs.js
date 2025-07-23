@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from '../screens/HomeScreen';
 import CursoScreen from '../screens/CursoScreen';
-import ChatScreen from '../screens/ChatScreen';
+import ChatScreen from '../screens/ChatScreen'; // Caminho corrigido
 import PerfilScreen from '../screens/PerfilScreen';
 
 const Tab = createBottomTabNavigator();

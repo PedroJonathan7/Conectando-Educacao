@@ -11,13 +11,13 @@ const COLORS = {
   secondaryText: '#ddd',
 };
 
-export default function ChatListaAlunos() {
-  const [alunos, setAlunos] = useState([]);
+export default function ChatListaProfessores() {
+  const [professores, setProfessores] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
   useEffect(() => {
-    const alunosRef = ref(database, 'alunos/');
+    const profRef = ref(database, 'professores/');
     const onData = (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -26,12 +26,12 @@ export default function ChatListaAlunos() {
           nome: data[key].nome,
           email: data[key].email,
         }));
-        setAlunos(lista);
+        setProfessores(lista);
       }
       setLoading(false);
     };
-    onValue(alunosRef, onData);
-    return () => off(alunosRef);
+    onValue(profRef, onData);
+    return () => off(profRef);
   }, []);
 
   if (loading) return (
@@ -42,14 +42,14 @@ export default function ChatListaAlunos() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Seus Alunos</Text>
+      <Text style={styles.title}>Professores disponíveis</Text>
       <FlatList
-        data={alunos}
+        data={professores}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity 
             style={styles.item}
-            onPress={() => navigation.navigate('ChatProfessor', { alunoId: item.id })}
+            onPress={() => navigation.navigate('ChatAluno', { professorId: item.id })}
           >
             <Text style={styles.nome}>{item.nome}</Text>
             <Text style={styles.email}>{item.email}</Text>

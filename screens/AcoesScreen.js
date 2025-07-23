@@ -27,18 +27,21 @@ export default function AcoesScreen({ navigation }) {
       <TextInput
         style={styles.input}
         placeholder="Local da ação"
+        placeholderTextColor="#555"
         value={local}
         onChangeText={setLocal}
       />
       <TextInput
         style={styles.input}
         placeholder="Descrição da ação"
+        placeholderTextColor="#555"
         value={descricao}
         onChangeText={setDescricao}
       />
       <TextInput
         style={styles.input}
         placeholder="Data da ação"
+        placeholderTextColor="#555"
         value={data}
         onChangeText={setData}
       />
@@ -51,24 +54,40 @@ export default function AcoesScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#e6ddff', flex: 1, padding: 20 },
-  voltar: { color: '#6b5ca5', marginBottom: 10 },
-  titulo: { fontSize: 22, fontWeight: 'bold', marginBottom: 20, color: '#3e2f7a' },
-  input: {
-    backgroundColor: '#fff',
-    padding: 12,
-    borderRadius: 8,
+  container: {
+    flex: 1,
+    backgroundColor: '#2a5d8f',
+    padding: 20,
+  },
+  voltar: {
+    color: '#fff',
+    fontSize: 16,
     marginBottom: 15,
   },
-  botao: {
-    backgroundColor: '#6b5ca5',
+  titulo: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginBottom: 20,
+  },
+  input: {
+    backgroundColor: '#ffffff',
     padding: 14,
-    borderRadius: 8,
+    borderRadius: 10,
+    marginBottom: 15,
+    fontSize: 16,
+    color: '#000',
+  },
+  botao: {
+    backgroundColor: '#3399cc',
+    padding: 14,
+    borderRadius: 10,
     alignItems: 'center',
+    marginTop: 10,
   },
   botaoTexto: {
     color: '#fff',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
 });

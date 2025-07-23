@@ -74,6 +74,8 @@ export default function LoginProfessor({ navigation }) {
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
+          autoCapitalize="none"
+          placeholderTextColor="#555"
         />
       </View>
 
@@ -85,6 +87,7 @@ export default function LoginProfessor({ navigation }) {
           secureTextEntry
           value={senha}
           onChangeText={setSenha}
+          placeholderTextColor="#555"
         />
       </View>
 
@@ -100,7 +103,7 @@ export default function LoginProfessor({ navigation }) {
         <Text style={styles.linkText}>Voltar para login de aluno</Text>
       </TouchableOpacity>
 
-      <Text style={styles.footer}>conectando educação-PE</Text>
+      <Text style={styles.footer}>conectando educação - PE</Text>
     </View>
   );
 }
@@ -108,16 +111,16 @@ export default function LoginProfessor({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3598af',
+    backgroundColor: '#2a5d8f', // azul escuro
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20
+    padding: 20,
   },
   logo: {
     width: 130,
     height: 130,
     marginBottom: 30,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   inputGroup: {
     flexDirection: 'row',
@@ -126,43 +129,45 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 15,
     marginVertical: 8,
-    width: '100%'
+    width: '100%',
   },
   icon: {
     width: 24,
     height: 24,
-    marginRight: 10
+    marginRight: 10,
   },
   input: {
     flex: 1,
-    height: 50
+    height: 50,
+    color: '#000',
+    fontSize: 16,
   },
   botaoLogin: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#e6ddff', // botão claro
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 25,
     marginTop: 20,
     borderWidth: 1,
-    borderColor: '#000'
+    borderColor: '#2a5d8f',
   },
   textoBotao: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#000'
+    color: '#2a5d8f', // texto azul escuro
   },
   linkText: {
-  marginTop: 15,
-  color: '#fff',
-  textDecorationLine: 'underline',
-  fontSize: 14,
-  textAlign: 'center'
-},
+    marginTop: 15,
+    color: '#fff',
+    textDecorationLine: 'underline',
+    fontSize: 14,
+    textAlign: 'center',
+  },
   footer: {
     position: 'absolute',
     bottom: 20,
     color: '#fff',
     fontSize: 16,
-    fontStyle: 'italic'
-  }
+    fontStyle: 'italic',
+  },
 });

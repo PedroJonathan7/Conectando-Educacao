@@ -34,9 +34,40 @@ export default function CursoScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#e6ddff', padding: 20 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 20, color: '#3e2f7a' },
-  card: { backgroundColor: '#fff', padding: 15, borderRadius: 10, marginBottom: 20 },
-  cardTitle: { fontWeight: 'bold', fontSize: 18, marginBottom: 5 },
-  link: { color: '#6b5ca5', marginTop: 8 },
+  container: { 
+    backgroundColor: '#2a5d8f', // azul escuro no fundo 
+    padding: 20,
+    flex: 1,
+  },
+  title: { 
+    fontSize: 22, 
+    fontWeight: 'bold', 
+    marginBottom: 20, 
+    color: '#fff', // texto branco para contraste
+    textAlign: 'center' 
+  },
+  card: { 
+    backgroundColor: '#fff', 
+    padding: 15, 
+    borderRadius: 10, 
+    marginBottom: 20,
+    // sombra leve azulada
+    shadowColor: '#3399cc',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 4,
+  },
+  cardTitle: { 
+    fontWeight: 'bold', 
+    fontSize: 18, 
+    marginBottom: 5, 
+    color: '#2a5d8f' 
+  },
+  link: { 
+    color: '#3399cc', 
+    marginTop: 8, 
+    fontWeight: 'bold',
+    textAlign: 'right'
+  },
 });

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-  Alert
+  Alert,
 } from 'react-native';
 import { get, ref } from 'firebase/database';
 import { database } from '../firebaseConfig';
@@ -71,38 +71,45 @@ export default function LoginScreen({ navigation }) {
         resizeMode="contain"
       />
 
+      {/* Campo de email */}
       <View style={styles.inputContainer}>
         <Image source={require('../assets/user-icon.png')} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Email"
+          placeholderTextColor="#333"
           keyboardType="email-address"
+          autoCapitalize="none"
           value={email}
           onChangeText={setEmail}
         />
       </View>
 
+      {/* Campo de senha */}
       <View style={styles.inputContainer}>
         <Image source={require('../assets/lock-icon.png')} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Senha"
+          placeholderTextColor="#333"
           secureTextEntry
           value={senha}
           onChangeText={setSenha}
         />
       </View>
 
+      {/* Botão de login */}
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 
+      {/* Links de navegação */}
       <View style={styles.rowLinks}>
         <TouchableOpacity onPress={() => navigation.navigate('CadastroProfessor')}>
-          <Text style={styles.linkText}>cadastrar professor</Text>
+          <Text style={styles.linkText}>Cadastrar Professor</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('CadastroAluno')}>
-          <Text style={styles.linkText}>cadastrar aluno</Text>
+          <Text style={styles.linkText}>Cadastrar Aluno</Text>
         </TouchableOpacity>
       </View>
 
@@ -114,8 +121,9 @@ export default function LoginScreen({ navigation }) {
         <Text style={styles.linkText}>Sou Professor</Text>
       </TouchableOpacity>
 
+      {/* Rodapé */}
       <View style={styles.footer}>
-        <Text style={styles.footerText}>conectando educação-PE</Text>
+        <Text style={styles.footerText}>conectando educação - PE</Text>
       </View>
     </View>
   );
@@ -124,7 +132,7 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3598AC',
+    backgroundColor: '#2a5d8f', 
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -132,7 +140,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 160,
     height: 160,
-    marginBottom: 20,
+    marginBottom: 25,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -151,18 +159,26 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    fontSize: 16,
+    color: '#000',
   },
   loginButton: {
-    backgroundColor: '#fff',
-    borderRadius: 30,
-    marginTop: 20,
-    paddingVertical: 12,
+    backgroundColor: '#3399cc', // azul claro
+    paddingVertical: 14,
     paddingHorizontal: 50,
+    borderRadius: 25,
     alignItems: 'center',
+    marginTop: 25,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   loginText: {
+    color: '#fff',
+    fontSize: 17,
     fontWeight: 'bold',
-    fontSize: 18,
   },
   rowLinks: {
     flexDirection: 'row',
@@ -172,22 +188,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   linkText: {
-    color: '#fff',
+    color: '#ffffff',
     fontSize: 14,
     textDecorationLine: 'underline',
     textAlign: 'center',
-    marginTop: 10
+    marginTop: 10,
   },
   footer: {
     position: 'absolute',
     bottom: 10,
-    backgroundColor: '#f6f0e5',
     width: '100%',
     alignItems: 'center',
     padding: 10,
   },
   footerText: {
-    fontFamily: 'cursive',
-    fontSize: 16,
+    fontSize: 15,
+    fontStyle: 'italic',
+    color: '#ddd',
   },
 });

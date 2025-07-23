@@ -15,14 +15,15 @@ export default function ProfessorPerfilScreen({ navigation }) {
       <Text style={styles.title}>Perfil do Professor</Text>
 
       <View style={styles.card}>
-        <Text style={styles.label}>Nome:</Text>
-        <Text style={styles.value}>{user?.nome || "---"}</Text>
+        <View style={styles.row}>
+          <Text style={styles.label}>Nome:</Text>
+          <Text style={styles.value}>{user?.nome || "---"}</Text>
+        </View>
 
-        <Text style={styles.label}>Email:</Text>
-        <Text style={styles.value}>{user?.email || "---"}</Text>
-
-        <Text style={styles.label}>Disciplina:</Text>
-        <Text style={styles.value}>{user?.disciplina || "---"}</Text>
+        <View style={styles.row}>
+          <Text style={styles.label}>Email:</Text>
+          <Text style={styles.value}>{user?.email || "---"}</Text>
+        </View>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={sair}>
@@ -35,52 +36,53 @@ export default function ProfessorPerfilScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#e6ddff",
+    backgroundColor: "#d4eef8", // azul clarinho mais escuro (mesmo do Perfil 1)
     padding: 20,
     justifyContent: "center",
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "bold",
-    marginBottom: 20,
-    color: "#3e2f7a",
+    marginBottom: 30,
+    color: "#2c3e50", // azul escuro
     textAlign: "center",
   },
   card: {
-    backgroundColor: "#fff",
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 20,
-    elevation: 3,
+    backgroundColor: "#ffffff",
+    padding: 25,
+    borderRadius: 12,
+    marginBottom: 30,
+    elevation: 5,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: 6,
+  },
+  row: {
+    marginBottom: 20,
   },
   label: {
-    fontWeight: "bold",
-    color: "#6b5ca5",
-    marginTop: 10,
+    fontWeight: "600",
+    fontSize: 15,
+    color: "#666", // cinza
   },
   value: {
-    fontSize: 16,
-    color: "#2f4f4f",
-    marginBottom: 10,
+    fontSize: 17,
+    color: "#2c3e50", // azul escuro
     borderBottomWidth: 1,
-    borderBottomColor: "#eee",
-    paddingBottom: 10,
+    borderBottomColor: "#ddd",
+    paddingBottom: 5,
   },
   button: {
-    backgroundColor: "#6b5ca5",
-    padding: 15,
-    borderRadius: 8,
+    backgroundColor: "#3399cc", // azul claro (mesmo do Perfil 1)
+    paddingVertical: 15,
+    borderRadius: 10,
     alignItems: "center",
-    marginTop: 10,
-    elevation: 3,
+    elevation: 2,
   },
   buttonText: {
     color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 17,
+    fontWeight: "600",
   },
 });

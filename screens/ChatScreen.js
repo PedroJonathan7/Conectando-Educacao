@@ -1,59 +1,76 @@
-import React, { useState } from 'react';
-import {
-  View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { ref, onValue, off } from 'firebase/database';
+import { database } from '../firebaseConfig';
 
-export default function ChatScreen() {
-  const [mensagem, setMensagem] = useState('');
-  const [conversas, setConversas] = useState([]);
+const COLORS = {
+  background: '#2a5d8f',
+  primaryText: '#ffffff',
+  itemBackground: '#3399cc',
+  emailText: '#e0e0e0',
+  loadingIndicator: '#3399cc',
+};
 
-  const enviarMensagem = () => {
-    if (mensagem.trim() === '') return;
+export default function ChatScreen({ navigation }) {
+  const [professores, setProfessores] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const novaMensagem = {
-      id: Date.now().toString(),
-      texto: mensagem
+  useEffect(() => {
+    const professoresRef = ref(database, 'professores/');
+    const handleData = (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const listaProfessores = Object.keys(data).map(key => ({
+          id: key,
+          nome: data[key].nome,
+          email: data[key].email,
+        }));
+        setProfessores(listaProfessores);
+      }
+      setLoading(false);
     };
+    onValue(professoresRef, handleData);
+    return () => off(professoresRef);
+  }, []);
 
-    setConversas([...conversas, novaMensagem]);
-    setMensagem('');
-  };
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color={COLORS.loadingIndicator} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Chat com Educadores</Text>
-
+      <Text style={styles.title}>Selecione um Professor</Text>
       <FlatList
-        data={conversas}
-        keyExtractor={(item) => item.id}
+        data={professores}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <View style={styles.msgBox}>
-            <Text>{item.texto}</Text>
-          </View>
+          <TouchableOpacity 
+            style={styles.item}
+            onPress={() => navigation.navigate('ChatConversa', { professorId: item.id })}
+          >
+            <Text style={styles.nome}>{item.nome}</Text>
+            <Text style={styles.email}>{item.email}</Text>
+          </TouchableOpacity>
         )}
-        style={styles.chatArea}
       />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Digite sua mensagem"
-        value={mensagem}
-        onChangeText={setMensagem}
-      />
-
-      <TouchableOpacity style={styles.button} onPress={enviarMensagem}>
-        <Text style={styles.buttonText}>Enviar</Text>
-      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#e6ddff', padding: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 15, color: '#3e2f7a' },
-  chatArea: { flex: 1, marginBottom: 10 },
-  msgBox: { backgroundColor: '#f2f0ff', padding: 10, borderRadius: 8, marginBottom: 5 },
-  input: { backgroundColor: '#fff', padding: 10, borderRadius: 8, marginBottom: 10 },
-  button: { backgroundColor: '#6b5ca5', padding: 12, borderRadius: 8, alignItems: 'center' },
-  buttonText: { color: '#fff', fontSize: 16 },
+  container: { flex: 1, padding: 20, backgroundColor: COLORS.background },
+  title: { fontSize: 20, fontWeight: 'bold', marginBottom: 20, color: COLORS.primaryText },
+  item: { 
+    backgroundColor: COLORS.itemBackground, 
+    padding: 15, 
+    borderRadius: 8, 
+    marginBottom: 10,
+    elevation: 2,
+  },
+  nome: { fontWeight: 'bold', color: COLORS.primaryText, fontSize: 16 },
+  email: { color: COLORS.emailText, marginTop: 5, fontSize: 14 }
 });

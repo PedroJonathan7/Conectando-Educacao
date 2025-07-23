@@ -22,10 +22,8 @@ export default function EditarCursosScreen({ navigation }) {
         const data = snapshot.val();
         const lista = Object.keys(data).map(key => ({ id: key, ...data[key] }));
         setModulos(lista);
-        console.log('Módulos carregados:', lista);
       } else {
         setModulos([]);
-        console.log('Nenhum módulo encontrado');
       }
     } catch (error) {
       console.error('Erro ao carregar módulos:', error);
@@ -50,21 +48,18 @@ export default function EditarCursosScreen({ navigation }) {
     }
   };
 
-  // Iniciar edição
   const iniciarEdicao = (modulo) => {
     setEditandoId(modulo.id);
     setTituloEditando(modulo.titulo);
     setDescricaoEditando(modulo.descricao);
   };
 
-  // Cancelar edição
   const cancelarEdicao = () => {
     setEditandoId(null);
     setTituloEditando('');
     setDescricaoEditando('');
   };
 
-  // Salvar edição
   const salvarEdicao = async () => {
     if (!tituloEditando || !descricaoEditando) {
       Alert.alert('Erro', 'Preencha todos os campos.');
@@ -84,20 +79,17 @@ export default function EditarCursosScreen({ navigation }) {
     }
   };
 
-  // Excluir módulo
- const excluirModulo = async (id) => {
-  console.log('Tentando excluir módulo id:', id);
-  try {
-    const moduloRef = ref(database, `cursos/${cursoSelecionado}/modulos/${id}`);
-    await remove(moduloRef);
-    console.log('Módulo excluído:', id);
-    carregarModulos();
-    Alert.alert('Sucesso', 'Módulo excluído!');
-  } catch (error) {
-    console.error('Erro ao excluir módulo:', error);
-    Alert.alert('Erro', 'Não foi possível excluir o módulo.');
-  }
-};
+  const excluirModulo = async (id) => {
+    try {
+      const moduloRef = ref(database, `cursos/${cursoSelecionado}/modulos/${id}`);
+      await remove(moduloRef);
+      carregarModulos();
+      Alert.alert('Sucesso', 'Módulo excluído!');
+    } catch (error) {
+      console.error('Erro ao excluir módulo:', error);
+      Alert.alert('Erro', 'Não foi possível excluir o módulo.');
+    }
+  };
 
   useEffect(() => {
     carregarModulos();
@@ -118,13 +110,15 @@ export default function EditarCursosScreen({ navigation }) {
             style={[styles.selector, cursoSelecionado === curso && styles.selectorAtivo]}
             onPress={() => setCursoSelecionado(curso)}
           >
-            <Text style={[styles.selectorText, cursoSelecionado === curso && {color: '#fff'}]}>{curso}</Text>
+            <Text style={[styles.selectorText, cursoSelecionado === curso && styles.selectorTextAtivo]}>
+              {curso}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
 
       <Text style={styles.subTitle}>Módulos existentes:</Text>
-      {modulos.length === 0 && <Text>Nenhum módulo encontrado.</Text>}
+      {modulos.length === 0 && <Text style={styles.texto}>Nenhum módulo encontrado.</Text>}
 
       {modulos.map((modulo) => (
         <View key={modulo.id} style={styles.card}>
@@ -144,10 +138,16 @@ export default function EditarCursosScreen({ navigation }) {
                 placeholder="Descrição"
               />
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <TouchableOpacity style={[styles.button, { flex: 1, marginRight: 5, backgroundColor: '#4caf50' }]} onPress={salvarEdicao}>
+                <TouchableOpacity
+                  style={[styles.button, { flex: 1, marginRight: 5, backgroundColor: '#3399cc' }]}
+                  onPress={salvarEdicao}
+                >
                   <Text style={styles.buttonText}>Salvar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.button, { flex: 1, marginLeft: 5, backgroundColor: '#999' }]} onPress={cancelarEdicao}>
+                <TouchableOpacity
+                  style={[styles.button, { flex: 1, marginLeft: 5, backgroundColor: '#999' }]}
+                  onPress={cancelarEdicao}
+                >
                   <Text style={styles.buttonText}>Cancelar</Text>
                 </TouchableOpacity>
               </View>
@@ -155,17 +155,17 @@ export default function EditarCursosScreen({ navigation }) {
           ) : (
             <>
               <Text style={styles.cardTitle}>{modulo.titulo}</Text>
-              <Text>{modulo.descricao}</Text>
+              <Text style={styles.texto}>{modulo.descricao}</Text>
               <View style={{ flexDirection: 'row', marginTop: 10 }}>
                 <TouchableOpacity
-                  style={[styles.button, { flex: 1, marginRight: 5, backgroundColor: '#2196f3' }]}
+                  style={[styles.button, { flex: 1, marginRight: 5, backgroundColor: '#3399cc' }]}
                   onPress={() => iniciarEdicao(modulo)}
                 >
                   <Text style={styles.buttonText}>Editar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.button, { flex: 1, marginLeft: 5, backgroundColor: '#f44336' }]}
-                  onPress={() => excluirModulo(modulo.id)} // função chamada corretamente
+                  onPress={() => excluirModulo(modulo.id)}
                 >
                   <Text style={styles.buttonText}>Excluir</Text>
                 </TouchableOpacity>
@@ -199,18 +199,20 @@ export default function EditarCursosScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#e6ddff', padding: 20 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 10, color: '#3e2f7a' },
-  subTitle: { fontSize: 18, marginTop: 20, marginBottom: 10, color: '#3e2f7a' },
+  container: { flex: 1, backgroundColor: '#2a5d8f', padding: 20 },
+  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 10, color: '#fff' },
+  subTitle: { fontSize: 18, marginTop: 20, marginBottom: 10, color: '#fff' },
+  texto: { color: '#fff', fontSize: 14 },
   input: {
     backgroundColor: '#fff',
     padding: 12,
     borderRadius: 8,
     marginBottom: 10,
     textAlignVertical: 'top',
+    color: '#000',
   },
   button: {
-    backgroundColor: '#6b5ca5',
+    backgroundColor: '#3399cc',
     padding: 14,
     borderRadius: 8,
     alignItems: 'center',
@@ -223,29 +225,32 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 10,
   },
-  cardTitle: { fontWeight: 'bold', fontSize: 16 },
+  cardTitle: { fontWeight: 'bold', fontSize: 16, color: '#2a5d8f' },
   selectorContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginVertical: 10,
   },
   selector: {
-    backgroundColor: '#d9ccff',
+    backgroundColor: '#3399cc',
     padding: 8,
     borderRadius: 8,
   },
   selectorAtivo: {
-    backgroundColor: '#6b5ca5',
+    backgroundColor: '#2a5d8f',
   },
   selectorText: {
-    color: '#3e2f7a',
+    color: '#fff',
     fontWeight: 'bold',
+  },
+  selectorTextAtivo: {
+    color: '#fff',
   },
   backButton: {
     marginBottom: 10,
   },
   backButtonText: {
     fontSize: 16,
-    color: '#6b5ca5',
+    color: '#3399cc',
   },
 });

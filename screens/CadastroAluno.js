@@ -124,7 +124,7 @@ export default function CadastroAluno({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#3598af",
+    backgroundColor: "#2a5d8f",
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
@@ -156,18 +156,18 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   botaoCadastro: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#3399cc",
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 25,
     marginTop: 20,
     borderWidth: 1,
-    borderColor: "#000",
+    borderColor: "#2a5d8f",
   },
   textoBotao: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#000",
+    color: "#ffffff",
   },
   linkText: {
     marginTop: 15,

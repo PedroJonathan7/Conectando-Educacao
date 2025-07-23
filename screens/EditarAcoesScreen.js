@@ -86,18 +86,21 @@ export default function EditarAcoesScreen({ navigation }) {
         placeholder="Título da ação"
         value={titulo}
         onChangeText={setTitulo}
+        placeholderTextColor="#666"
       />
       <TextInput
         style={styles.input}
         placeholder="Descrição"
         value={descricao}
         onChangeText={setDescricao}
+        placeholderTextColor="#666"
       />
       <TextInput
         style={styles.input}
         placeholder="Data (ex: 25/07/2025)"
         value={data}
         onChangeText={setData}
+        placeholderTextColor="#666"
       />
       <TouchableOpacity style={styles.button} onPress={adicionarAcao}>
         <Text style={styles.buttonText}>Adicionar Ação</Text>
@@ -118,31 +121,51 @@ export default function EditarAcoesScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#e6ddff', padding: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, color: '#3e2f7a' },
+  container: { 
+    flex: 1, 
+    backgroundColor: '#2a5d8f', // azul escuro no fundo
+    padding: 20 
+  },
+  title: { 
+    fontSize: 24, 
+    fontWeight: 'bold', 
+    marginBottom: 20, 
+    color: '#fff', // branco para contraste
+  },
   input: {
     backgroundColor: '#fff',
     padding: 12,
     borderRadius: 8,
     marginBottom: 12,
+    color: '#000',
   },
   button: {
-    backgroundColor: '#6b5ca5',
+    backgroundColor: '#3399cc', // azul claro no botão
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 8,
     marginBottom: 20,
     alignItems: 'center',
   },
-  buttonText: { color: '#fff', fontWeight: 'bold' },
+  buttonText: { 
+    color: '#fff', 
+    fontWeight: 'bold' 
+  },
   card: {
     backgroundColor: '#fff',
     padding: 14,
     borderRadius: 8,
     marginBottom: 12,
   },
-  texto: { fontSize: 16, color: '#333', marginBottom: 4 },
-  label: { fontWeight: 'bold', color: '#3e2f7a' },
+  texto: { 
+    fontSize: 16, 
+    color: '#333', 
+    marginBottom: 4 
+  },
+  label: { 
+    fontWeight: 'bold', 
+    color: '#2a5d8f' // azul escuro nos labels
+  },
   deletarBtn: {
     marginTop: 8,
     alignSelf: 'flex-end',
@@ -156,7 +179,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   backButtonText: {
-    color: '#3e2f7a',
+    color: '#3399cc', // azul claro no texto do botão voltar
     fontSize: 16,
   },
 });

@@ -45,7 +45,7 @@ export default function CadastroProfessor({ navigation }) {
       email: email.trim(),
       senha,
       disciplina: disciplina.trim(),
-      tipo: "professor", // Mantido como no segundo código
+      tipo: "professor",
     });
 
     Alert.alert("Sucesso", "Cadastro realizado!");
@@ -57,70 +57,50 @@ export default function CadastroProfessor({ navigation }) {
       <Image source={require("../assets/logo.png")} style={styles.logo} />
 
       <View style={styles.inputGroup}>
-        <Image
-          source={require("../assets/user-icon.png")}
-          style={styles.icon}
-        />
+        <Image source={require("../assets/user-icon.png")} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Nome Completo"
           value={nome}
           onChangeText={setNome}
+          placeholderTextColor="#666"
         />
       </View>
 
       <View style={styles.inputGroup}>
-        <Image
-          source={require("../assets/email-icon.png")}
-          style={styles.icon}
-        />
+        <Image source={require("../assets/email-icon.png")} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="E-mail"
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
+          placeholderTextColor="#666"
         />
       </View>
 
-      <View style={styles.inputGroup}>
-        <Image
-          source={require("../assets/book-icon.png")}
-          style={styles.icon}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Disciplina Principal"
-          value={disciplina}
-          onChangeText={setDisciplina}
-        />
-      </View>
 
       <View style={styles.inputGroup}>
-        <Image
-          source={require("../assets/lock-icon.png")}
-          style={styles.icon}
-        />
+        <Image source={require("../assets/lock-icon.png")} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Senha"
           secureTextEntry
           value={senha}
           onChangeText={setSenha}
+          placeholderTextColor="#666"
         />
       </View>
 
       <View style={styles.inputGroup}>
-        <Image
-          source={require("../assets/lock-icon.png")}
-          style={styles.icon}
-        />
+        <Image source={require("../assets/lock-icon.png")} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Confirmar Senha"
           secureTextEntry
           value={confirmarSenha}
           onChangeText={setConfirmarSenha}
+          placeholderTextColor="#666"
         />
       </View>
 
@@ -140,7 +120,7 @@ export default function CadastroProfessor({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#3598af",
+    backgroundColor: "#2a5d8f",
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
@@ -169,27 +149,19 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 50,
     fontSize: 16,
+    color: "#000",
   },
   botaoCadastro: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#3399cc",
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 25,
     marginTop: 20,
-    borderWidth: 1,
-    borderColor: "#000",
   },
   textoBotao: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#000",
-  },
-  footer: {
-    position: "absolute",
-    bottom: 20,
     color: "#fff",
-    fontSize: 16,
-    fontStyle: "italic",
   },
   linkText: {
     marginTop: 15,
@@ -197,5 +169,12 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     fontSize: 14,
     textAlign: "center",
+  },
+  footer: {
+    position: "absolute",
+    bottom: 20,
+    color: "#fff",
+    fontSize: 16,
+    fontStyle: "italic",
   },
 });

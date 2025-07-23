@@ -15,8 +15,15 @@ export default function PerfilScreen({ navigation }) {
       <Text style={styles.title}>Perfil do Aluno</Text>
 
       <View style={styles.card}>
-        <Text>Nome: {user?.nome || '---'}</Text>
-        <Text>Email: {user?.email || '---'}</Text>
+        <View style={styles.row}>
+          <Text style={styles.label}>Nome:</Text>
+          <Text style={styles.value}>{user?.nome || '---'}</Text>
+        </View>
+
+        <View style={styles.row}>
+          <Text style={styles.label}>Email:</Text>
+          <Text style={styles.value}>{user?.email || '---'}</Text>
+        </View>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={sair}>
@@ -27,9 +34,55 @@ export default function PerfilScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#e6ddff', padding: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, color: '#3e2f7a' },
-  card: { backgroundColor: '#fff', padding: 15, borderRadius: 10, marginBottom: 20 },
-  button: { backgroundColor: '#6b5ca5', padding: 12, borderRadius: 8, alignItems: 'center' },
-  buttonText: { color: '#fff', fontSize: 16 },
+  container: {
+    flex: 1,
+    backgroundColor: '#d4eef8', // azul clarinho mais escuro
+    padding: 20,
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    color: '#2c3e50',
+    textAlign: 'center',
+  },
+  card: {
+    backgroundColor: '#ffffff',
+    padding: 25,
+    borderRadius: 12,
+    marginBottom: 30,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+  },
+  row: {
+    marginBottom: 20,
+  },
+  label: {
+    fontWeight: '600',
+    fontSize: 15,
+    color: '#666',
+  },
+  value: {
+    fontSize: 17,
+    color: '#2c3e50',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+    paddingBottom: 5,
+  },
+  button: {
+    backgroundColor: '#3399cc',
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    elevation: 2,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 17,
+    fontWeight: '600',
+  },
 });

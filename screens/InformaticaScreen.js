@@ -33,23 +33,56 @@ export default function InformaticaScreen({ navigation }) {
 
       <Text style={styles.title}>Curso de Informática</Text>
 
+      {modulos.length === 0 && <Text style={styles.emptyText}>Nenhum conteúdo adicionado ainda.</Text>}
+
       {modulos.map((modulo) => (
         <View key={modulo.id} style={styles.card}>
           <Text style={styles.cardTitle}>{modulo.titulo}</Text>
-          <Text>{modulo.descricao}</Text>
+          <Text style={styles.cardDescription}>{modulo.descricao}</Text>
         </View>
       ))}
-
-      {modulos.length === 0 && <Text style={styles.emptyText}>Nenhum conteúdo adicionado ainda.</Text>}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#e6ddff', padding: 20 },
-  voltar: { fontSize: 16, color: '#6b5ca5', marginBottom: 10 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 15, color: '#3e2f7a' },
-  card: { backgroundColor: '#fff', padding: 15, borderRadius: 10, marginBottom: 15 },
-  cardTitle: { fontWeight: 'bold', marginBottom: 5 },
-  emptyText: { textAlign: 'center', marginTop: 20, fontStyle: 'italic' },
+  container: {
+    backgroundColor: '#2a5d8f',  // fundo azul escuro
+    padding: 20,
+    flex: 1,
+  },
+  voltar: {
+    fontSize: 16,
+    color: '#3399cc', // azul claro para contraste
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: '#fff', // branco para destacar no fundo azul escuro
+    textAlign: 'center',
+  },
+  card: {
+    backgroundColor: '#3399cc', // azul claro nos cards
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 15,
+  },
+  cardTitle: {
+    fontWeight: 'bold',
+    color: '#fff',  // branco para contraste
+    marginBottom: 5,
+    fontSize: 16,
+  },
+  cardDescription: {
+    color: '#e0e0e0', // texto clarinho no card azul claro
+    fontSize: 14,
+  },
+  emptyText: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontStyle: 'italic',
+    color: '#fff',  // texto branco no fundo azul escuro
+  },
 });

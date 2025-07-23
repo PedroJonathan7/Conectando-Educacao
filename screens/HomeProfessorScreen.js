@@ -57,7 +57,7 @@ export default function HomeProfessorScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#c7b3ff",
+    backgroundColor: "#2a5d8f",  // fundo azul escuro
     padding: 20,
     flex: 1,
   },
@@ -65,20 +65,20 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#fff",
+    color: "#fff",             // texto branco para contraste
     textAlign: "center",
   },
   subtitle: {
     fontSize: 18,
     marginVertical: 10,
-    color: "#fff",
+    color: "#fff",             // texto branco
     textAlign: "center",
   },
   cardGroup: {
     marginBottom: 20,
   },
   card: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#3399cc",  // azul claro para os cards
     borderRadius: 10,
     padding: 20,
     marginVertical: 10,
@@ -92,10 +92,10 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#2f4f4f",
+    color: "#fff",              // texto branco para contraste no card azul
   },
   botaoAcao: {
-    backgroundColor: "#fff",
+    backgroundColor: "#3399cc",  // azul claro no botão
     padding: 12,
     borderRadius: 8,
     marginTop: 30,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   botaoTexto: {
-    color: "#2f4f4f",
+    color: "#fff",              // texto branco no botão
     fontWeight: "bold",
     fontSize: 16,
   },

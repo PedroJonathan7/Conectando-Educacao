@@ -15,6 +15,8 @@ export default function PortuguesScreen({ navigation }) {
           const dados = snapshot.val();
           const lista = Object.entries(dados).map(([key, val]) => ({ id: key, ...val }));
           setModulos(lista);
+        } else {
+          setModulos([]);
         }
       } catch (error) {
         console.error('Erro ao carregar módulos de Português:', error);
@@ -36,20 +38,61 @@ export default function PortuguesScreen({ navigation }) {
       {modulos.map((modulo) => (
         <View key={modulo.id} style={styles.card}>
           <Text style={styles.cardTitle}>{modulo.titulo}</Text>
-          <Text>{modulo.descricao}</Text>
+          <Text style={styles.cardDesc}>{modulo.descricao}</Text>
         </View>
       ))}
 
-      {modulos.length === 0 && <Text style={styles.emptyText}>Nenhum conteúdo adicionado ainda.</Text>}
+      {modulos.length === 0 && (
+        <Text style={styles.emptyText}>Nenhum conteúdo adicionado ainda.</Text>
+      )}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#e6ddff', padding: 20 },
-  voltar: { fontSize: 16, color: '#6b5ca5', marginBottom: 10 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 15, color: '#3e2f7a' },
-  card: { backgroundColor: '#fff', padding: 15, borderRadius: 10, marginBottom: 15 },
-  cardTitle: { fontWeight: 'bold', marginBottom: 5 },
-  emptyText: { textAlign: 'center', marginTop: 20, fontStyle: 'italic' },
+  container: {
+    backgroundColor: '#2a5d8f', // fundo azul escuro
+    padding: 20,
+    flex: 1,
+  },
+  voltar: {
+    fontSize: 16,
+    color: '#fff',
+    marginBottom: 15,
+    textDecorationLine: 'underline',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#fff',
+    textAlign: 'center',
+  },
+  card: {
+    backgroundColor: '#3399cc', // azul claro para o card
+    padding: 15,
+    borderRadius: 12,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 5,
+  },
+  cardDesc: {
+    fontSize: 14,
+    color: '#e6ddff',
+  },
+  emptyText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginTop: 20,
+  },
 });

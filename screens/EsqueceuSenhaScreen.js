@@ -82,7 +82,7 @@ export default function EsqueceuSenhaScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Digite seu e-mail"
-          placeholderTextColor="#333"
+          placeholderTextColor="#ccc"
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
@@ -95,7 +95,7 @@ export default function EsqueceuSenhaScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Nova senha"
-          placeholderTextColor="#333"
+          placeholderTextColor="#ccc"
           secureTextEntry
           value={novaSenha}
           onChangeText={setNovaSenha}
@@ -120,7 +120,7 @@ export default function EsqueceuSenhaScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3399cc',
+    backgroundColor: '#2a5d8f',   // fundo azul escuro
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 30,
@@ -152,16 +152,15 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   button: {
-    backgroundColor: '#ffffff',
-    borderColor: '#000',
-    borderWidth: 1,
+    backgroundColor: '#3399cc',   // botão azul claro para contraste no fundo azul escuro
     borderRadius: 30,
     paddingVertical: 12,
     paddingHorizontal: 24,
     marginTop: 10,
+    alignItems: 'center',
   },
   buttonText: {
-    color: '#000',
+    color: '#fff',                // texto branco no botão
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -176,13 +175,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     height: 50,
-    backgroundColor: '#fdf5e6',
+    backgroundColor: '#2a5d8f',   // mesmo fundo azul escuro
     justifyContent: 'center',
     alignItems: 'center',
   },
   rodapeTexto: {
     fontStyle: 'italic',
-    color: '#444',
+    color: '#ccc',
     fontSize: 16,
   },
 });

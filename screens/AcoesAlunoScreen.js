@@ -23,12 +23,12 @@ export default function AcoesAlunoScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Botão de voltar */}
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <Text style={styles.backButtonText}>◀ Voltar</Text>
       </TouchableOpacity>
 
       <Text style={styles.titulo}>Ações Disponíveis</Text>
+
       {acoes.map((acao, index) => (
         <View key={index} style={styles.card}>
           <Text style={styles.tituloAcao}>{acao.titulo}</Text>
@@ -43,38 +43,44 @@ export default function AcoesAlunoScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: '#3498a5',
+    backgroundColor: '#2a5d8f',
     flexGrow: 1,
     alignItems: 'center',
   },
   backButton: {
     alignSelf: 'flex-start',
-    marginBottom: 10,
+    marginBottom: 15,
+    backgroundColor: '#3399cc',
+    paddingVertical: 6,
+    paddingHorizontal: 14,
+    borderRadius: 20,
   },
   backButtonText: {
-    fontSize: 16,
-    color: 'white',
+    fontSize: 15,
+    color: '#fff',
+    fontWeight: '600',
   },
   titulo: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#ffffff',
     marginBottom: 20,
   },
   card: {
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
     padding: 16,
-    marginBottom: 12,
+    marginBottom: 16,
     width: '100%',
     borderRadius: 12,
     shadowColor: '#000',
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.15,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
   },
   tituloAcao: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: 'bold',
+    color: '#2a5d8f',
     marginBottom: 8,
   },
   descricao: {

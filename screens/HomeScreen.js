@@ -30,27 +30,58 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#c7b3ff', padding: 20 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 10, color: '#fff' },
-  subtitle: { fontSize: 18, marginVertical: 10, color: '#fff' },
-  cardGroup: { marginBottom: 20 },
+  container: {
+    backgroundColor: '#2a5d8f', // fundo azul escuro
+    padding: 20,
+    flex: 1,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#fff', // texto branco
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 18,
+    marginVertical: 10,
+    color: '#fff', // texto branco
+    textAlign: 'center',
+  },
+  cardGroup: {
+    marginBottom: 20,
+  },
   card: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#3399cc', // azul claro
     borderRadius: 10,
     padding: 20,
     marginVertical: 10,
     alignItems: 'center',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
-  cardTitle: { fontSize: 16, fontWeight: 'bold', color: '#2f4f4f' },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff', // texto branco para contraste
+  },
   botaoAcao: {
-    backgroundColor: '#fff',
+    backgroundColor: '#3399cc', // azul claro no botão
     padding: 12,
     borderRadius: 8,
     marginTop: 30,
     alignItems: 'center',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
   botaoTexto: {
-    color: '#2f4f4f',
+    color: '#fff', // texto branco no botão
     fontWeight: 'bold',
     fontSize: 16,
   },
