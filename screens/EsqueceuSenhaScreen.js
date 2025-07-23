@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity, Alert, StyleSheet
+  View, Text, TextInput, TouchableOpacity, Image, Alert, StyleSheet
 } from 'react-native';
 import { ref, get, update } from 'firebase/database';
 import { database } from '../firebaseConfig';
@@ -19,12 +19,11 @@ export default function EsqueceuSenhaScreen({ navigation }) {
     }
 
     try {
-      // Buscar alunos
       const alunosRef = ref(database, 'alunos/');
       const snapshotAlunos = await get(alunosRef);
       let usuarioEncontrado = null;
       let userId = null;
-      let tipoUsuario = null; // 'alunos' ou 'professores'
+      let tipoUsuario = null;
 
       if (snapshotAlunos.exists()) {
         const alunos = snapshotAlunos.val();
@@ -38,7 +37,6 @@ export default function EsqueceuSenhaScreen({ navigation }) {
         }
       }
 
-      // Se não achou nos alunos, busca nos professores
       if (!usuarioEncontrado) {
         const profsRef = ref(database, 'professores/');
         const snapshotProfs = await get(profsRef);
@@ -56,7 +54,6 @@ export default function EsqueceuSenhaScreen({ navigation }) {
       }
 
       if (usuarioEncontrado && userId && tipoUsuario) {
-        // Atualiza a senha no caminho correto
         await update(ref(database, `${tipoUsuario}/${userId}`), {
           senha: novaSenhaKey
         });
@@ -74,24 +71,36 @@ export default function EsqueceuSenhaScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Recuperar Senha</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Digite seu e-mail"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
+      <Image
+        source={require('../assets/logo.png')} 
+        style={styles.logo}
+        resizeMode="contain"
       />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Nova senha"
-        secureTextEntry
-        value={novaSenha}
-        onChangeText={setNovaSenha}
-      />
+      <View style={styles.inputContainer}>
+        <Image source={require('../assets/user-icon.png')} style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu e-mail"
+          placeholderTextColor="#333"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+        />
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Image source={require('../assets/lock-icon.png')} style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Nova senha"
+          placeholderTextColor="#333"
+          secureTextEntry
+          value={novaSenha}
+          onChangeText={setNovaSenha}
+        />
+      </View>
 
       <TouchableOpacity style={styles.button} onPress={handleRecuperar}>
         <Text style={styles.buttonText}>Redefinir Senha</Text>
@@ -100,15 +109,80 @@ export default function EsqueceuSenhaScreen({ navigation }) {
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Text style={styles.linkText}>Voltar ao Login</Text>
       </TouchableOpacity>
+
+      <View style={styles.rodape}>
+        <Text style={styles.rodapeTexto}>conectando educação - PE</Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#c7b3ff', justifyContent: 'center', paddingHorizontal: 25 },
-  title: { fontSize: 28, fontWeight: 'bold', color: '#3e2f7a', marginBottom: 25, alignSelf: 'center' },
-  input: { backgroundColor: '#e6e0ff', padding: 12, borderRadius: 8, marginBottom: 15 },
-  button: { backgroundColor: '#6b5ca5', padding: 14, borderRadius: 8, alignItems: 'center' },
-  buttonText: { color: '#fff', fontSize: 18 },
-  linkText: { marginTop: 20, textAlign: 'center', color: '#3e2f7a' },
+  container: {
+    flex: 1,
+    backgroundColor: '#3399cc',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 30,
+  },
+  logo: {
+    width: 160,
+    height: 160,
+    marginBottom: 30,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 30,
+    paddingHorizontal: 15,
+    marginBottom: 15,
+    width: '100%',
+    height: 50,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+    tintColor: '#000',
+  },
+  input: {
+    flex: 1,
+    fontSize: 16,
+    color: '#000',
+  },
+  button: {
+    backgroundColor: '#ffffff',
+    borderColor: '#000',
+    borderWidth: 1,
+    borderRadius: 30,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#000',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  linkText: {
+    marginTop: 20,
+    textAlign: 'center',
+    color: '#fff',
+    textDecorationLine: 'underline',
+  },
+  rodape: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 50,
+    backgroundColor: '#fdf5e6',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rodapeTexto: {
+    fontStyle: 'italic',
+    color: '#444',
+    fontSize: 16,
+  },
 });

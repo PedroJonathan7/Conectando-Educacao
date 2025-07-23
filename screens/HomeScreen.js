@@ -22,7 +22,7 @@ export default function HomeScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.botaoAcao} onPress={() => navigation.navigate('Acoes')}>
+      <TouchableOpacity style={styles.botaoAcao} onPress={() => navigation.navigate('AcoesAluno')}>
         <Text style={styles.botaoTexto}>Ações</Text>
       </TouchableOpacity>
     </ScrollView>

@@ -19,6 +19,7 @@ import BottomTabs from './components/BottomTabs';
 import MatematicaScreen from './screens/MatematicaScreen';
 import PortuguesScreen from './screens/PortuguesScreen';
 import InformaticaScreen from './screens/InformaticaScreen';
+import AcoesAlunoScreen from './screens/AcoesAlunoScreen';  
 
 // Navegação professor
 import HomeProfessorScreen from './screens/HomeProfessorScreen';
@@ -46,6 +47,7 @@ export default function App() {
           <Stack.Screen name="Matematica" component={MatematicaScreen} />
           <Stack.Screen name="Portugues" component={PortuguesScreen} />
           <Stack.Screen name="Informatica" component={InformaticaScreen} />
+          <Stack.Screen name="AcoesAluno" component={AcoesAlunoScreen} />  
 
           {/* Professor Navegação Principal */}
           <Stack.Screen name="HomeProfessor" component={HomeProfessorScreen} />
